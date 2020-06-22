@@ -1,0 +1,31 @@
+body,html{
+    padding:0;
+    margin:0;
+    background-color: lightgray;
+}
+
+.bloc-bonus, .bloc-vie, .bloc-jeu{
+    height: 90vh;
+}
+
+/* Bloc Vie */ 
+.title-vie{
+    font-size: 25px;
+    font-weight: bold;
+}
+.bloc-icone-vie{
+    font-size: 25px;
+}
+.icone-vie, .icone-vie-perdue{
+    color:orange;
+}
+.icone-vie-perdue{
+    opacity: 0.6;
+}
+.affichage-score{
+    color:orange;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+/* Bloc Bonus */
