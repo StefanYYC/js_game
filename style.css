@@ -8,6 +8,19 @@ body,html{
     height: 90vh;
 }
 
+/* Modal */
+.btn-start{
+    height: 50px;
+    width: 250px;
+    background-color: #ffbb00;
+    color:white;
+    font-size: 30px;
+    font-weight: bolder;
+}
+.modal-title{
+    font-size: 40px;
+    font-weight: bold;
+}
 /* Bloc Vie */ 
 .title-vie{
     font-size: 25px;
