@@ -52,15 +52,14 @@ function checkTarget() {
 // C'est ici où on va créer l'espace de jeu
 // Je vais créer un canvas et c'est à l'intérieur que je vais dessiner les blocs
 var game = {
-  canvas: document.createElement("canvas"),
+  canvas: document.getElementById("myCanvas"),
   start: function () {
-    this.canvas.width = 500;
-    this.canvas.height = 600;
-    this.canvas.style.border = "3px solid gray";
+    this.canvas.width = 843;
+    this.canvas.height = 835;
+    this.canvas.style.border = "3px solid white";
     this.canvas.style.backgroundColor = "#d3d3d3";
     this.canvas.style.margin = "auto";
     this.canvas.style.display = "block";
-    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.context = this.canvas.getContext("2d");
     this.canvas.addEventListener("click", clickHandler, event);
     requestAnimationFrame(game.update);
@@ -68,7 +67,7 @@ var game = {
   },
   update: function () {
     // Affichage du score en direct
-    game.context.clearRect(0, 0, 300, 400);
+    game.context.clearRect(0, 0, 843, 835);
     document.querySelector(".affichage-score").innerHTML = score;
     // Si l'user atteint 50 points on arrête le jeu
     if (score == 50) {
@@ -95,9 +94,9 @@ var game = {
     game.canvas.removeEventListener("click", clickHandler, event);
     game.context.fillStyle = "black";
     game.context.globalAlpha = 0.5;
-    game.context.fillRect(0, 0, 300, 400);
+    game.context.fillRect(0, 0, 843, 835);
     game.context.globalAlpha = 1.0;
-    game.context.fillRect(0, 100, 300, 100);
+    game.context.fillRect(0, 100, 843, 835);
     game.context.font = "20px Consolas";
     // si on gagne
     if (win) {
