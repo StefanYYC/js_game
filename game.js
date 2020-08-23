@@ -25,8 +25,9 @@ this.targetsShot = []; // Cibles touchées
 function startGame() {
   game.start();
 }
+// quand une cible atteint une certaine distance (ici y > 765 ), le jeu s'arrête (ou retira une vie)
 function targetGone() {
-  for (let i = 0; i < targets.length; i++) if (targets[i].y > 400) return true;
+  for (let i = 0; i < targets.length; i++) if (targets[i].y > 765) return true;
 }
 function clickHandler(event) {
   x = event.clientX - game.canvas.offsetLeft;
@@ -56,26 +57,28 @@ var game = {
   start: function () {
     this.canvas.width = 843;
     this.canvas.height = 835;
-    this.canvas.style.border = "3px solid white";
-    this.canvas.style.backgroundColor = "#d3d3d3";
-    this.canvas.style.margin = "auto";
-    this.canvas.style.display = "block";
     this.context = this.canvas.getContext("2d");
     this.canvas.addEventListener("click", clickHandler, event);
     requestAnimationFrame(game.update);
+
     game.update();
   },
   update: function () {
-    // Affichage du score en direct
     game.context.clearRect(0, 0, 843, 835);
+    // Affichage de la zone de défaite (si une target touche cette zone, la partie se termine)
+    game.context.fillStyle = "#66ffff";
+    game.context.fillRect(0, 780, 843, 50);
+    // Affichage du score en direct
     document.querySelector(".affichage-score").innerHTML = score;
     // Si l'user atteint 50 points on arrête le jeu
     if (score == 50) {
       return game.stop(true);
     }
+    // si la cible a atteint le bas du jeu
     if (targetGone()) {
       return game.stop(false);
     }
+    // on ajoute des cibles au fur et à mesure
     if (targets.length == 0 || targets[targets.length - 1].y >= distance) {
       var t = new target();
       targets.push(t);
@@ -92,12 +95,12 @@ var game = {
   // On gère la victoire ou la défaite de l'user ici
   stop: function (win) {
     game.canvas.removeEventListener("click", clickHandler, event);
-    game.context.fillStyle = "black";
+    game.context.fillStyle = "white";
     game.context.globalAlpha = 0.5;
     game.context.fillRect(0, 0, 843, 835);
     game.context.globalAlpha = 1.0;
     game.context.fillRect(0, 100, 843, 835);
-    game.context.font = "20px Consolas";
+    game.context.font = "20px Consolas"; // texte qui s'affiche à la fin de la partie
     // si on gagne
     if (win) {
       game.context.fillStyle = "LawnGreen";
@@ -113,15 +116,16 @@ var game = {
   },
 };
 
+// cibles
 function target() {
-  this.x = Math.floor(Math.random() * 290);
-  this.y = 0;
-  this.shot = false;
+  this.x = Math.floor(Math.random() * 290); // affiche sur l'axe x random
+  this.y = 0; // pour que ça parte du haut de la page
+  this.shot = false; // détecte si la cible a été touché
   this.shotCount = 0;
   this.draw = function () {
-    game.context.fillStyle = "black";
+    game.context.fillStyle = "orange"; // couleur cible
     if (this.shot) {
-      this.shotCount++;
+      this.shotCount++; // à chaque fois qu'une cible est touchée on rajoute +1 au score
       game.context.fillRect(this.x, this.y, 4, 4);
       game.context.fillRect(this.x + 4, this.y + 4, 4, 4);
       game.context.fillRect(this.x + 12, this.y + 4, 4, 4);

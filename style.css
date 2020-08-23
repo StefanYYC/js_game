@@ -8,6 +8,14 @@ body,html{
     height: 90vh;
 }
 
+
+#myCanvas{
+    background-color: #d3d3d3;
+    margin: auto;
+    display: block;
+    border: 2px solid white;
+}
+
 /* Modal */
 .btn-start{
     height: 50px;
